@@ -29,12 +29,14 @@ INSTRU: INSTRU_AFFECTATION
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
 ;
-EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_IDF
+EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
-LISTE_EXPR_ENTRE_IDF: idf mc_operation LISTE_EXPR_ENTRE_IDF 
-                    |  idf
+LISTE_EXPR_ENTRE_ARG: ARG mc_operation LISTE_EXPR_ENTRE_ARG 
+                    |  ARG
 ;
-EXPR_ENTRE_IDF: idf mc_operation idf
+ARG: idf
+    | val_entier
+    | val_reel
 ;
 DEC: DEC_VAR
      |DEC_TAB
