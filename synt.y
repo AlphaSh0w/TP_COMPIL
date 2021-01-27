@@ -1,7 +1,8 @@
 %token mc_import pvg bib_io bib_lang err mc_public 
        mc_private mc_protected mc_class idf aco_ov aco_fr
-	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fm
+	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fr
 	   cst mc_const mc_affectation val_entier val_chaine val_reel
+       mc_main par_ov par_fr
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -14,10 +15,14 @@ MODIFICATEUR: mc_public
              |mc_private
 			 |mc_protected
 			 ;
-CORPS:LISTE_DEC
+CORPS:LISTE_DEC MAIN
 ;
 LISTE_DEC: DEC LISTE_DEC
           |
+;
+MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
+;
+LISTE_INSTRU: 
 ;
 DEC: DEC_VAR
      |DEC_TAB
@@ -30,8 +35,8 @@ LISTE_IDF: idf vrg LISTE_IDF
 ;	
 DEC_TAB: TYPE LISTE_IDF_TAB pvg
 ;
-LISTE_IDF_TAB: idf_tab cr_ov cst cr_fm vrg LISTE_IDF_TAB
-              |idf_tab cr_ov cst cr_fm
+LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
+              |idf_tab cr_ov cst cr_fr
 ;	
 DEC_CONST: mc_const TYPE idf pvg
             | mc_const TYPE idf mc_affectation VALEUR pvg
