@@ -22,7 +22,12 @@ LISTE_DEC: DEC LISTE_DEC
 ;
 MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
 ;
-LISTE_INSTRU: 
+LISTE_INSTRU: INSTRU LISTE_INSTRU 
+            |
+;
+INSTRU: INSTRU_AFFECTATION
+;
+INSTRU_AFFECTATION: idf mc_affectation pvg
 ;
 DEC: DEC_VAR
      |DEC_TAB
