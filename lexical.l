@@ -6,6 +6,7 @@ lettres [a-zA-Z]
 chiffres [0-9]
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
+chaine \"({lettres}|{chiffres})+\"
 entier (-|\+){chiffres}+
 
 %%
@@ -31,6 +32,7 @@ Chaine return mc_chaine;
 CONST return mc_const;
 := return mc_affectation;
 {entier} return val_entier;
+{chaine} return val_chaine;
 [ \t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
