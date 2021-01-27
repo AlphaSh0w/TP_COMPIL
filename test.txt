@@ -10,7 +10,7 @@ CONST Entier $j := +2,2;
 
 main()
 {
-    $j :=;
+    $j := $z;
 }
 }
 
