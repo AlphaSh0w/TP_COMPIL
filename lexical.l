@@ -28,6 +28,7 @@ Chaine return mc_chaine;
 "}" return aco_fr;
 ; return pvg;
 CONST return mc_const;
+:= return mc_affectation;
 [ \t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
