@@ -6,7 +6,7 @@ lettres [a-zA-Z]
 chiffres [0-9]
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
-entier (\-){chiffres}+
+entier (-|\+){chiffres}+
 
 %%
 import return mc_import;
