@@ -34,9 +34,12 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fm vrg LISTE_IDF_TAB
               |idf_tab cr_ov cst cr_fm
 ;	
 DEC_CONST: mc_const TYPE idf pvg
-            | mc_const TYPE idf mc_affectation val_entier pvg
-            | mc_const TYPE idf mc_affectation val_chaine pvg
-            | mc_const TYPE idf mc_affectation val_reel pvg
+            | mc_const TYPE idf mc_affectation VALEUR pvg
+;
+
+VALEUR:val_reel
+        |val_entier
+        |val_chaine
 ;
 
 	  
