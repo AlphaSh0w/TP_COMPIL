@@ -11,6 +11,7 @@ CONST Entier $j := +2,2;
 main()
 {
     $j := $z;
+    $j := $z+$s;
 }
 }
 

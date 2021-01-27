@@ -2,7 +2,7 @@
        mc_private mc_protected mc_class idf aco_ov aco_fr
 	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fr
 	   cst mc_const mc_affectation val_entier val_chaine val_reel
-       mc_main par_ov par_fr
+       mc_main par_ov par_fr mc_operation
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -29,7 +29,9 @@ INSTRU: INSTRU_AFFECTATION
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
 ;
-EXPRESSION: idf | val_entier
+EXPRESSION: idf | VALEUR | EXPR_ENTRE_IDF
+;
+EXPR_ENTRE_IDF: idf mc_operation idf
 ;
 DEC: DEC_VAR
      |DEC_TAB
