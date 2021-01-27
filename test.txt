@@ -4,6 +4,7 @@ public class $ISIL_B {
 Entier $x,$z;
 Reel $y;
 Entier @tab[5],@tab2[3];
+CONSTE Entier $j
 }
 
 
