@@ -4,6 +4,7 @@ int nb_ligne=1;
 %}
 lettres [a-zA-Z]
 chiffres [0-9]
+constante {chiffres}+
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine \"({lettres}|{chiffres})+\"
@@ -23,7 +24,7 @@ Reel return mc_reel;
 Chaine return mc_chaine;
 {idf} return idf;
 {idf_tab} return idf_tab;
-{chiffres} return cst;
+{constante} return cst;
 "[" return cr_ov;
 "]" return cr_fr;
 "," return vrg;

@@ -28,6 +28,7 @@ LISTE_INSTRU: INSTRU LISTE_INSTRU
 INSTRU: INSTRU_AFFECTATION
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
+                    |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
 ;
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
