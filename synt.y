@@ -1,7 +1,7 @@
 %token mc_import pvg bib_io bib_lang err mc_public 
        mc_private mc_protected mc_class idf aco_ov aco_fr
 	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fm
-	   cst mc_const mc_affectation val_entier val_chaine
+	   cst mc_const mc_affectation val_entier val_chaine val_reel
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -36,6 +36,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fm vrg LISTE_IDF_TAB
 DEC_CONST: mc_const TYPE idf pvg
             | mc_const TYPE idf mc_affectation val_entier pvg
             | mc_const TYPE idf mc_affectation val_chaine pvg
+            | mc_const TYPE idf mc_affectation val_reel pvg
 ;
 
 	  
