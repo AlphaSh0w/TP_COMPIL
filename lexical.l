@@ -9,7 +9,7 @@ idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine \"({lettres}|{chiffres})+\"
 entier (-|\+){chiffres}+
 reel (-|\+){chiffres}+,{chiffres}+
-operation [+]
+operation [+\-*\/]
 %%
 import return mc_import;
 ISIL.io return bib_io;
