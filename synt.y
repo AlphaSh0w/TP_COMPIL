@@ -29,7 +29,10 @@ INSTRU: INSTRU_AFFECTATION
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
 ;
-EXPRESSION: idf | VALEUR | EXPR_ENTRE_IDF
+EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_IDF
+;
+LISTE_EXPR_ENTRE_IDF: idf mc_operation LISTE_EXPR_ENTRE_IDF 
+                    |  idf
 ;
 EXPR_ENTRE_IDF: idf mc_operation idf
 ;
