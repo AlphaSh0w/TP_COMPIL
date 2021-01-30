@@ -42,6 +42,7 @@ Chaine return mc_chaine;
 ">>" return mc_incrmnt;
 \" return mc_quot;
 ; return pvg;
+"," return vrg;
 CONST return mc_const;
 := return mc_affectation;
 {entier} return val_entier;

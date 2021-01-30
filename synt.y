@@ -5,6 +5,7 @@
        mc_main par_ov par_fr mc_operation mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
+       vrg
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -35,7 +36,7 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
 ;
 
-INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot par_fr pvg
+INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg
 ;
 
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
