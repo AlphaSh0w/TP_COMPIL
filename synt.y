@@ -4,6 +4,8 @@
 	   cst mc_const mc_affectation val_entier val_chaine val_reel
        mc_main par_ov par_fr mc_operation mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
+       mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
+       vrg
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -26,13 +28,17 @@ MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
 LISTE_INSTRU: INSTRU LISTE_INSTRU 
             |
 ;
-INSTRU: INSTRU_AFFECTATION | INSTRU_FOR
+INSTRU: INSTRU_AFFECTATION | INSTRU_FOR | INSTRU_LECTURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
 ;
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
 ;
+
+INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg
+;
+
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
 LISTE_EXPR_ENTRE_ARG: ARG mc_operation LISTE_EXPR_ENTRE_ARG 
@@ -68,6 +74,8 @@ VALEUR:val_reel
 OPERAND: idf | val_entier | val_reel | cst
 ;
 
+FORMATAGE: formatage_entier | formatage_reel | formatage_chaine
+;
 	  
 TYPE:mc_entier
     |mc_reel
@@ -75,9 +83,7 @@ TYPE:mc_entier
 ;	
 
 COMPARAISON: mc_egal | mc_sup | mc_supEgal | mc_inf | mc_infEgal | mc_diff
-;
-			 
-			 
+;			 
 			 
 LISTE_BIB: BIB LISTE_BIB
           |
