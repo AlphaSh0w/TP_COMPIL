@@ -27,13 +27,17 @@ MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
 LISTE_INSTRU: INSTRU LISTE_INSTRU 
             |
 ;
-INSTRU: INSTRU_AFFECTATION | INSTRU_FOR
+INSTRU: INSTRU_AFFECTATION | INSTRU_FOR | INSTRU_LECTURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
 ;
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
 ;
+
+INSTRU_LECTURE: mc_in par_ov par_fr pvg
+;
+
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
 LISTE_EXPR_ENTRE_ARG: ARG mc_operation LISTE_EXPR_ENTRE_ARG 
