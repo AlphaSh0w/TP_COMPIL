@@ -40,6 +40,7 @@ CONST return mc_const;
 {chaine} return val_chaine;
 {reel} return val_reel;
 main return mc_main;
+for return mc_for;
 [ \t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
