@@ -5,7 +5,6 @@
        mc_main par_ov par_fr mc_operation mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
-       vrg
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -70,7 +69,7 @@ DEC_CONST: mc_const TYPE idf pvg
 
 VALEUR:val_reel
         |val_entier
-        |val_chaine
+        |mc_quot val_chaine mc_quot
 ;
 
 OPERAND: idf | val_entier | val_reel | cst

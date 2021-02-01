@@ -7,7 +7,7 @@ chiffres [0-9]
 constante {chiffres}+
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
-chaine \"({lettres}|{chiffres})+\"
+chaine ({lettres}|{chiffres})+
 entier (-|\+){chiffres}+
 reel (-|\+){chiffres}+,{chiffres}+
 operation [+\-*\/]
@@ -46,7 +46,6 @@ Chaine return mc_chaine;
 CONST return mc_const;
 := return mc_affectation;
 {entier} return val_entier;
-{chaine} return val_chaine;
 {reel} return val_reel;
 main return mc_main;
 for return mc_for;
@@ -55,6 +54,7 @@ Out return mc_out;
 "%d" return formatage_entier;
 "%f" return formatage_reel;
 "%s" return formatage_chaine;
+{chaine} return val_chaine;
 [ \t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
