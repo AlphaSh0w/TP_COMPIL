@@ -24,6 +24,8 @@ main()
 
     In("%d", $i);
 
+    Out("test %s %f %d",$z,$e,$r);
+
 }
 }
 
