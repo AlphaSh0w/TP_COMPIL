@@ -28,7 +28,7 @@ MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
 LISTE_INSTRU: INSTRU LISTE_INSTRU 
             |
 ;
-INSTRU: INSTRU_AFFECTATION | INSTRU_FOR | INSTRU_LECTURE
+INSTRU: INSTRU_AFFECTATION | INSTRU_FOR | INSTRU_LECTURE | INSTRU_ECRITURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
@@ -37,6 +37,8 @@ INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg
 ;
 
 INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg
+;
+INSTRU_ECRITURE: mc_out par_ov par_fr pvg
 ;
 
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
