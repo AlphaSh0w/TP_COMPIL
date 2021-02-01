@@ -24,7 +24,7 @@ main()
 
     In("%d", $i);
 
-    Out();
+    Out("test tstas %s%f%d");
 
 }
 }

@@ -37,9 +37,11 @@ INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg
 
 INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg
 ;
-INSTRU_ECRITURE: mc_out par_ov par_fr pvg
+INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot par_fr pvg
 ;
-
+SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
+            |
+;
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
 LISTE_EXPR_ENTRE_ARG: ARG mc_operation LISTE_EXPR_ENTRE_ARG 
