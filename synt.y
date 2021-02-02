@@ -43,7 +43,9 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg
 SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
             |
 ;
-COMMENTAIRE: mc_commentaire val_chaine mc_commentaire
+COMMENTAIRE: mc_commentaire CONTENU_COMMENTAIRE mc_commentaire
+;
+CONTENU_COMMENTAIRE: val_chaine CONTENU_COMMENTAIRE | 
 ;
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
