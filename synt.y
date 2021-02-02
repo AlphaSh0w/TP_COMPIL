@@ -2,10 +2,10 @@
        mc_private mc_protected mc_class idf aco_ov aco_fr
 	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fr
 	   cst mc_const mc_affectation val_entier val_chaine val_reel
-       mc_main par_ov par_fr mc_operation mc_for
+       mc_main par_ov par_fr mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
-       mc_commentaire
+       mc_commentaire mc_plus mc_mois mc_mul mc_div
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -49,7 +49,7 @@ CONTENU_COMMENTAIRE: val_chaine CONTENU_COMMENTAIRE |
 ;
 EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_ARG
 ;
-LISTE_EXPR_ENTRE_ARG: ARG mc_operation LISTE_EXPR_ENTRE_ARG 
+LISTE_EXPR_ENTRE_ARG: ARG OPERATEUR LISTE_EXPR_ENTRE_ARG 
                     |  ARG
 ;
 ARG: idf
@@ -80,6 +80,9 @@ VALEUR:val_reel
 ;
 
 OPERAND: idf | val_entier | val_reel | cst
+;
+
+OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
 ;
 
 FORMATAGE: formatage_entier | formatage_reel | formatage_chaine

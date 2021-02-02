@@ -10,7 +10,6 @@ idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine ({lettres}|{chiffres})+
 entier (-|\+){chiffres}+
 reel (-|\+){chiffres}+,{chiffres}+
-operation [+\-*\/]
 %%
 import return mc_import;
 ISIL.io return bib_io;
@@ -32,7 +31,10 @@ Chaine return mc_chaine;
 "}" return aco_fr;
 "(" return par_ov;
 ")" return par_fr;
-{operation} return mc_operation;
+"+" return mc_plus;
+"-" return mc_mois;
+"*" return mc_mul;
+"/" return mc_div;
 "==" return mc_egal;
 ">" return mc_sup;
 ">=" return mc_supEgal;
