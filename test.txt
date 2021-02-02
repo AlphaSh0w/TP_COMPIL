@@ -6,6 +6,7 @@ public class $ISIL_B {
 Entier $a, $b, $c, $d, $e, $sum;
 Reel $div;
 Entier @tab[5],@tab2[3];
+CONST Entier $t;
 CONST Entier $i := +100;
 CONST Chaine $ch := "abc123";
 CONST Reel $j := -2,2;
