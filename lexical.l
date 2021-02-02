@@ -41,7 +41,7 @@ Chaine return mc_chaine;
 "<" return mc_inf;
 "<=" return mc_infEgal;
 "!=" return mc_diff;
-">>" return mc_incrmnt;
+"++" return mc_incrmnt;
 "##" return mc_commentaire;
 \" return mc_quot;
 ; return pvg;
