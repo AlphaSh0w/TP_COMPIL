@@ -73,6 +73,7 @@ DEC_CONST: mc_const TYPE idf pvg
 VALEUR:val_reel
         |val_entier
         |mc_quot val_chaine mc_quot
+        |cst
 ;
 
 OPERAND: idf | val_entier | val_reel | cst

@@ -7,7 +7,7 @@ Entier $a, $b, $c, $d, $e, $sum;
 Reel $div;
 Entier @tab[5],@tab2[3];
 CONST Entier $t;
-CONST Entier $i := +100;
+CONST Entier $i := 100;
 CONST Chaine $ch := "abc123";
 CONST Reel $j := -2,2;
 
@@ -19,12 +19,12 @@ main()
     $e := $a - $b;
     $e := $c * $d;
     $j := $c / $d;
-    $e := $a + $d + +3;
+    $e := $a + $d + 3;
     @tab2[0] := $b + $c;
 
     ## La Boucle ##
     for($i := 0; $i <= 5; $i++){
-        $a := $i + +1;
+        $a := $i + 1;
         $b := $a + $c;
     }
 
