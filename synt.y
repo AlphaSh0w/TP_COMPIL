@@ -5,7 +5,7 @@
        mc_main par_ov par_fr mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
-       mc_commentaire mc_plus mc_mois mc_mul mc_div
+        mc_plus mc_mois mc_mul mc_div
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
@@ -28,7 +28,10 @@ MAIN: mc_main par_ov par_fr aco_ov LISTE_INSTRU aco_fr
 LISTE_INSTRU: INSTRU LISTE_INSTRU 
             |
 ;
-INSTRU: INSTRU_AFFECTATION | INSTRU_FOR | INSTRU_LECTURE | INSTRU_ECRITURE | COMMENTAIRE
+INSTRU: INSTRU_AFFECTATION 
+        | INSTRU_FOR 
+        | INSTRU_LECTURE
+         | INSTRU_ECRITURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
@@ -43,15 +46,12 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg
 SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
             |
 ;
-COMMENTAIRE: mc_commentaire CONTENU_COMMENTAIRE mc_commentaire
+
+
+EXPRESSION: OPERAND OPERATEUR EXPRESSION
+           |OPERAND
 ;
-CONTENU_COMMENTAIRE: val_chaine CONTENU_COMMENTAIRE | 
-;
-EXPRESSION: idf | VALEUR | LISTE_EXPR_ENTRE_OPERANDS
-;
-LISTE_EXPR_ENTRE_OPERANDS: OPERAND OPERATEUR LISTE_EXPR_ENTRE_OPERANDS 
-                    |  OPERAND
-;
+
 DEC: DEC_VAR
      |DEC_TAB
      |DEC_CONST
@@ -76,7 +76,7 @@ VALEUR:val_reel
         |cst
 ;
 
-OPERAND: idf | val_entier | val_reel | cst
+OPERAND: idf | val_entier | val_reel | cst |mc_quot val_chaine mc_quot
 ;
 
 OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
