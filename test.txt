@@ -37,9 +37,8 @@ main()
 
     ## Ecriture ##
     Out("la somme est %d et la devision est %f", $sum, $div);
-    
-    ## ceci est
-    un commentaire ##
+
+    ## Commentaire avec un # test ##
 
 }
 }

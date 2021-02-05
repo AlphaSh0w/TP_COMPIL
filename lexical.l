@@ -42,7 +42,7 @@ Chaine return mc_chaine;
 "<=" return mc_infEgal;
 "!=" return mc_diff;
 "++" return mc_incrmnt;
-"##"[^#]*"##" 
+"##".*"##" 
 \" return mc_quot;
 ; return pvg;
 CONST return mc_const;
