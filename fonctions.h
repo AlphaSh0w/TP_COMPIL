@@ -25,7 +25,7 @@
 		return -1;
 		}
 		
-  //3-d�finir la fonction inserer
+  //3-definir la fonction inserer
   void inserer(char entite[], char code[])
 	{
 
@@ -36,7 +36,7 @@
 	CpTabSym++;
 	}
 	}
-  //4-d�finir la fonction afficher
+  //4-definir la fonction afficher
 	  void afficher ()
 	{
 	printf("\n/***************Table des symboles ******************/\n");
@@ -51,7 +51,7 @@
 	   }
 	}
 	
-	//5-d�finir une focntion pour inserer le type
+	//5-definir une focntion pour inserer le type
 	
 	 void insererTYPE(char entite[], char type[])
 	{

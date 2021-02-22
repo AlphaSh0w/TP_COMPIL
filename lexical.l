@@ -21,11 +21,22 @@ public return mc_public;
 private return mc_private;
 protected return mc_protected;
 class return mc_class;
-Entier return mc_entier;
-Reel return mc_reel;
-Chaine return mc_chaine;
-{idf} return idf;
-{idf_tab} return idf_tab;
+Entier {  yylval.str=strdup("Entier");
+		  return mc_entier;
+		  }
+Reel  {  yylval.str=strdup("Reel");
+               return mc_reel;
+	   }
+Chaine { yylval.str=strdup("Chaine");
+          return mc_chaine;
+		  }
+{idf} {  inserer(yytext, "idf");
+         yylval.str=strdup(yytext);
+         return idf;
+		}
+{idf_tab} {yylval.str=strdup(yytext);
+            return idf_tab;
+			}
 {constante} {  yylval.entier=atoi(yytext);
                return cst;}
 "[" return cr_ov;
