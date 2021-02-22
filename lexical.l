@@ -1,6 +1,6 @@
 %{
 #include "synt.tab.h"
-int nb_ligne=1;
+extern nb_ligne=1;
 %}
 lettres [a-zA-Z]
 chiffres [0-9]

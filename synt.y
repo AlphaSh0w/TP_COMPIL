@@ -1,3 +1,7 @@
+%{
+int nb_ligne=1;
+%}
+
 %token mc_import pvg bib_io bib_lang err mc_public 
        mc_private mc_protected mc_class idf aco_ov aco_fr
 	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fr
@@ -105,3 +109,7 @@ NOM_BIB:bib_io
 main()
 {yyparse();}
 yywrap() {}
+yyerror(char*msg)
+{
+printf("erreur syntaxique a la ligne %d\n", nb_ligne);
+}
