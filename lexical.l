@@ -1,6 +1,7 @@
 %{
 #include "synt.tab.h"
 extern nb_ligne;
+extern YYSTYPE yylval;
 %}
 lettres [a-zA-Z]
 chiffres [0-9]
@@ -23,7 +24,8 @@ Reel return mc_reel;
 Chaine return mc_chaine;
 {idf} return idf;
 {idf_tab} return idf_tab;
-{constante} return cst;
+{constante} {  yylval.entier=atoi(yytext);
+               return cst;}
 "[" return cr_ov;
 "]" return cr_fr;
 "," return vrg;
@@ -47,7 +49,8 @@ Chaine return mc_chaine;
 ; return pvg;
 CONST return mc_const;
 := return mc_affectation;
-{entier} return val_entier;
+{entier} {  yylval.entier=atoi(yytext);
+            return val_entier;}
 {reel} return val_reel;
 main return mc_main;
 for return mc_for;

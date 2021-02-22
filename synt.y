@@ -2,6 +2,11 @@
 int nb_ligne=1;
 %}
 
+%union {
+int     entier;
+char*   str;
+}
+
 %token mc_import pvg bib_io bib_lang err mc_public 
        mc_private mc_protected mc_class idf aco_ov aco_fr
 	   mc_entier mc_reel mc_chaine vrg idf_tab cr_ov cr_fr
@@ -53,6 +58,12 @@ SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE
 
 
 EXPRESSION: OPERAND OPERATEUR EXPRESSION
+{
+        if(strcmp($2,'/')==1){
+ printf("div");
+        }
+			
+}
            |OPERAND
 ;
 

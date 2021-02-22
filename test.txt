@@ -40,6 +40,10 @@ main()
 
     ## Commentaire avec un # test ##
 
+    ## Analyse Semantique ##
+
+    $div := 1 / 0;
+
 }
 }
 
