@@ -3,7 +3,7 @@ import ISIL.io;
 
 public class $ISIL_B {
 
-Entier $a, $b, $c, $d, $e, $sum;
+Entier $a, $b, $c, $d, $e, $sum, $a;
 Reel $div;
 Entier @tab[5],@tab2[3];
 CONST Entier $t;

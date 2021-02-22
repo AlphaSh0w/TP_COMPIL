@@ -1,5 +1,6 @@
 %{
 int nb_ligne=1;
+char sauvType[20];
 %}
 
 %union {
@@ -23,9 +24,9 @@ S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correct
 
 HEADER_CLASS:MODIFICATEUR mc_class idf
 ;
-MODIFICATEUR: mc_public
-             |mc_private
-			 |mc_protected
+MODIFICATEUR:   mc_public
+                |mc_private
+	        |mc_protected
 			 ;
 CORPS:LISTE_DEC MAIN
 ;
@@ -68,12 +69,28 @@ DEC: DEC_VAR
 DEC_VAR: TYPE LISTE_IDF pvg
 ;
 LISTE_IDF: idf vrg LISTE_IDF
+{
+        if(doubleDeclaration($1)==0)
+                insererTYPE($1,sauvType);
+	else
+		printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+}
           |idf
+          {
+                if (doubleDeclaration($1)==0)
+                        insererTYPE($1,sauvType);
+		else
+			printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+          }
 ;	
 DEC_TAB: TYPE LISTE_IDF_TAB pvg
 ;
-LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
-              |idf_tab cr_ov cst cr_fr
+LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
+			                                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+							 }
+              |idf_tab cr_ov cst cr_fr  { if ($3<0)
+			                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+					}
 ;	
 DEC_CONST: mc_const TYPE idf pvg
             | mc_const TYPE idf mc_affectation VALEUR pvg
@@ -94,9 +111,9 @@ OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
 FORMATAGE: formatage_entier | formatage_reel | formatage_chaine
 ;
 	  
-TYPE:mc_entier
-    |mc_reel
-	|mc_chaine
+TYPE: mc_entier {strcpy(sauvType,$1);}
+        |mc_reel {strcpy(sauvType,$1);}
+        |mc_chaine {strcpy(sauvType,$1);}
 ;	
 
 COMPARAISON: mc_egal | mc_sup | mc_supEgal | mc_inf | mc_infEgal | mc_diff
@@ -112,7 +129,8 @@ NOM_BIB:bib_io
 ;		  
 %%
 main()
-{yyparse();}
+{yyparse();
+afficher();}
 yywrap() {}
 yyerror(char*msg)
 {
