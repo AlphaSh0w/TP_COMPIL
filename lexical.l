@@ -2,6 +2,8 @@
 #include "synt.tab.h"
 extern nb_ligne;
 extern YYSTYPE yylval;
+#include "fonctions.h"
+
 %}
 lettres [a-zA-Z]
 chiffres [0-9]

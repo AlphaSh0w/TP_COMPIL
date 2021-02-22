@@ -58,12 +58,6 @@ SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE
 
 
 EXPRESSION: OPERAND OPERATEUR EXPRESSION
-{
-        if(strcmp($2,'/')==1){
- printf("div");
-        }
-			
-}
            |OPERAND
 ;
 
