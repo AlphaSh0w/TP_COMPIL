@@ -7,6 +7,7 @@
 		char CodeEntite[20];
 		char TypeEntite[20];
 		char Constante[4];
+		char Valeur[100];
 		} TypeTS;
 		//initiation d'un tableau qui va contenir les elements de la table de symbole
         TypeTS ts[100]; 
@@ -61,9 +62,6 @@
 	   pos=recherche(entite);
 	if(pos!=-1)
 	   strcpy(ts[pos].TypeEntite,type); 
-	   
-	
-	
 	}
     //6- definir une focntion qui detecte la double declaration
 	int doubleDeclaration(char entite[])
@@ -72,8 +70,13 @@
 	pos=recherche(entite);
 	if(strcmp(ts[pos].TypeEntite,"")==0) return 0;
 	   else return -1;
-	   
-	  
-	
+	}
+
+	void insererConstante(char entite[])
+	{
+       int pos;
+	   pos=recherche(entite);
+	if(pos!=-1)
+	   strcpy(ts[pos].Constante,"oui");
 	}
 

@@ -1,6 +1,7 @@
 %{
 int nb_ligne=1;
 char sauvType[20];
+char tempValeur[100];
 %}
 
 %union {
@@ -92,8 +93,8 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
 			                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 					}
 ;	
-DEC_CONST: mc_const TYPE idf pvg
-            | mc_const TYPE idf mc_affectation VALEUR pvg
+DEC_CONST: mc_const TYPE idf pvg {insererConstante($3)}
+            | mc_const TYPE idf mc_affectation VALEUR pvg {insererConstante($3)}
 ;
 
 VALEUR:val_reel
