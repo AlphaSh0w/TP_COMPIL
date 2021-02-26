@@ -12,7 +12,7 @@ idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine ({lettres}|{chiffres})+
 entier (-|\+){chiffres}+
-reel [-+]?{chiffres}+","{chiffres}+
+reel [-+]?{chiffres}+"."{chiffres}+
 %%
 import return mc_import;
 ISIL.io return bib_io;
@@ -64,7 +64,8 @@ CONST return mc_const;
 := return mc_affectation;
 {entier} {  yylval.entier=atoi(yytext);
             return val_entier;}
-{reel} return val_reel;
+{reel} {  yylval.reel=atof(yytext);
+            return val_reel;}
 main return mc_main;
 for return mc_for;
 In return mc_in;

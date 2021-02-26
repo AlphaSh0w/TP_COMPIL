@@ -9,7 +9,7 @@ Entier @tab[5],@tab2[3];
 CONST Entier $t;
 CONST Entier $i := 100;
 CONST Chaine $ch := "abc123";
-CONST Reel $j := 2,2;
+CONST Reel $j := 2.2;
 
 main()
 {

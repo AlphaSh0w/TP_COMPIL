@@ -7,12 +7,13 @@ char tempValeur[100];
 %union {
 int     entier;
 char*   str;
+float   reel;
 }
 
 %token mc_import pvg bib_io bib_lang err mc_public 
        mc_private mc_protected mc_class <str>idf aco_ov aco_fr
 	   <str>mc_entier <str>mc_reel <str>mc_chaine vrg <str>idf_tab cr_ov cr_fr
-	   <entier>cst mc_const mc_affectation <entier>val_entier <str>val_chaine val_reel
+	   <entier>cst mc_const mc_affectation <entier>val_entier <str>val_chaine <reel>val_reel
        mc_main par_ov par_fr mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
@@ -112,7 +113,7 @@ DEC_CONST: mc_const TYPE idf pvg {
             }
 ;
 
-VALEUR:val_reel
+VALEUR:val_reel {sprintf(tempValeur, "%f", $1);}
         |val_entier {sprintf(tempValeur, "%d", $1);}
         |mc_quot val_chaine mc_quot {strcpy(tempValeur,$2);}
         |cst {sprintf(tempValeur, "%d", $1);}
