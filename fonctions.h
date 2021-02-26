@@ -44,12 +44,12 @@
 	{
 	printf("\n\n/***************Table des symboles ******************/\n");
 	printf("_____________________________________________________\n");
-	printf("\t| NomEntite |  CodeEntite | TyepEntite   |  Constante\n");
+	printf("\t| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur\n");
 	printf("_____________________________________________________\n");
 	int i=0;
 	  while(i<CpTabSym)
 	  {
-		printf("\t|%10s |%12s | %12s |%12s\n",ts[i].NomEntite,ts[i].CodeEntite,ts[i].TypeEntite,ts[i].Constante);
+		printf("\t|%10s |%12s | %12s |%12s |%12s\n",ts[i].NomEntite,ts[i].CodeEntite,ts[i].TypeEntite,ts[i].Constante, ts[i].Valeur);
 		 i++;
 	   }
 	}
@@ -72,12 +72,13 @@
 	   else return -1;
 	}
 
-	void insererConstante(char entite[])
+	void insererConstante(char entite[], char valeur[])
 	{
        int pos;
 	   pos=recherche(entite);
 	if(pos!=-1)
 	   strcpy(ts[pos].Constante,"oui");
+	   strcpy(ts[pos].Valeur,valeur);
 	}
 
 	// retourne 1 si l'entite est une constante + elle a une valeur

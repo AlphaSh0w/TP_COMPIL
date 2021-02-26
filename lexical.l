@@ -72,7 +72,9 @@ Out return mc_out;
 "%d" return formatage_entier;
 "%f" return formatage_reel;
 "%s" return formatage_chaine;
-{chaine} return val_chaine;
+{chaine} { yylval.str=strdup(yytext);
+          return val_chaine;
+		  }
 [ \t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
