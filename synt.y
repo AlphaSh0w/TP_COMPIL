@@ -2,7 +2,6 @@
 int nb_ligne=1;
 char sauvType[20];
 char tempValeur[100];
-char typeValeur[20];
 %}
 
 %union {
@@ -100,25 +99,23 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
 DEC_CONST: mc_const TYPE idf pvg {
         if (doubleDeclaration($3)==0){
                 insererTYPE($3,sauvType);
-                insererConstante($3);
+                insererConstante($3, "");
         } else 
                 printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
 }
             | mc_const TYPE idf mc_affectation VALEUR pvg {
                     if (doubleDeclaration($3)==0){
                                  insererTYPE($3,sauvType);
-                                if (strcmp(typeValeur,"chaine") == 0){ // c'est une chaine
-                                        insererConstante($3, tempValeur);
-                                }
+                                insererConstante($3, tempValeur);
                     } else 
                         printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
             }
 ;
 
 VALEUR:val_reel
-        |val_entier
-        |mc_quot val_chaine mc_quot {strcpy(typeValeur,"chaine");     strcpy(tempValeur,$2);}
-        |cst
+        |val_entier {sprintf(tempValeur, "%d", $1);}
+        |mc_quot val_chaine mc_quot {strcpy(tempValeur,$2);}
+        |cst {sprintf(tempValeur, "%d", $1);}
 ;
 
 OPERAND: idf | val_entier | val_reel | cst |mc_quot val_chaine mc_quot
