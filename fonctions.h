@@ -42,7 +42,7 @@
   //4-definir la fonction afficher
 	  void afficher ()
 	{
-	printf("\n/***************Table des symboles ******************/\n");
+	printf("\n\n/***************Table des symboles ******************/\n");
 	printf("_____________________________________________________\n");
 	printf("\t| NomEntite |  CodeEntite | TyepEntite   |  Constante\n");
 	printf("_____________________________________________________\n");

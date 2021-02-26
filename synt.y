@@ -19,7 +19,7 @@ char*   str;
         mc_plus mc_mois mc_mul mc_div
 
 %%
-S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("pgm syntaxiquement correcte"); 
+S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("\npgm syntaxiquement correcte"); 
                YYACCEPT;        }
 ;
 
@@ -77,23 +77,23 @@ LISTE_IDF: idf vrg LISTE_IDF
         if(doubleDeclaration($1)==0)
                 insererTYPE($1,sauvType);
 	else
-		printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+		printf("\nerreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
 }
           |idf
           {
                 if (doubleDeclaration($1)==0)
                         insererTYPE($1,sauvType);
 		else
-			printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+			printf("\nerreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
           }
 ;	
 DEC_TAB: TYPE LISTE_IDF_TAB pvg
 ;
 LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
-			                                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+			                                        printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 							 }
               |idf_tab cr_ov cst cr_fr  { if ($3<0)
-			                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+			                        printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 					}
 ;	
 DEC_CONST: mc_const TYPE idf pvg {
@@ -101,14 +101,14 @@ DEC_CONST: mc_const TYPE idf pvg {
                 insererTYPE($3,sauvType);
                 insererConstante($3);
         } else 
-                printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
 }
             | mc_const TYPE idf mc_affectation VALEUR pvg {
                     if (doubleDeclaration($3)==0){
                                  insererTYPE($3,sauvType);
                                 insererConstante($3);
                     } else 
-                        printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                        printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
             }
 ;
 
@@ -150,5 +150,5 @@ afficher();}
 yywrap() {}
 yyerror(char*msg)
 {
-printf("erreur syntaxique a la ligne %d\n", nb_ligne);
+printf("\nerreur syntaxique a la ligne %d\n", nb_ligne);
 }
