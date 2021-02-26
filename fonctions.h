@@ -6,6 +6,7 @@
 		char NomEntite[20];
 		char CodeEntite[20];
 		char TypeEntite[20];
+		char Constante[4];
 		} TypeTS;
 		//initiation d'un tableau qui va contenir les elements de la table de symbole
         TypeTS ts[100]; 
@@ -33,6 +34,7 @@
 	{
 	strcpy(ts[CpTabSym].NomEntite,entite); 
 	strcpy(ts[CpTabSym].CodeEntite,code);
+	strcpy(ts[CpTabSym].Constante,"non");
 	CpTabSym++;
 	}
 	}
@@ -41,12 +43,12 @@
 	{
 	printf("\n/***************Table des symboles ******************/\n");
 	printf("_____________________________________________________\n");
-	printf("\t| NomEntite |  CodeEntite | TyepEntite\n");
+	printf("\t| NomEntite |  CodeEntite | TyepEntite   |  Constante\n");
 	printf("_____________________________________________________\n");
 	int i=0;
 	  while(i<CpTabSym)
 	  {
-		printf("\t|%10s |%12s | %12s\n",ts[i].NomEntite,ts[i].CodeEntite,ts[i].TypeEntite);
+		printf("\t|%10s |%12s | %12s |%12s\n",ts[i].NomEntite,ts[i].CodeEntite,ts[i].TypeEntite,ts[i].Constante);
 		 i++;
 	   }
 	}
