@@ -93,8 +93,20 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
 			                        printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 					}
 ;	
-DEC_CONST: mc_const TYPE idf pvg {insererConstante($3)}
-            | mc_const TYPE idf mc_affectation VALEUR pvg {insererConstante($3)}
+DEC_CONST: mc_const TYPE idf pvg {
+        if (doubleDeclaration($3)==0){
+                insererTYPE($3,sauvType);
+                insererConstante($3);
+        } else 
+                printf("erreur semantique: double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+}
+            | mc_const TYPE idf mc_affectation VALEUR pvg {
+                    if (doubleDeclaration($3)==0){
+                                 insererTYPE($3,sauvType);
+                                insererConstante($3);
+                    } else 
+                        printf("erreur semantique: double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+            }
 ;
 
 VALEUR:val_reel
