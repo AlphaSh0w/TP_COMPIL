@@ -88,8 +88,10 @@
 		pos=recherche(entite);
 		if(pos!=-1){
 			if(strcmp(ts[pos].Constante,"oui")==0){
-				// test si elle a une valeur
-				return 1;
+				if (strcmp(ts[pos].Valeur, "") == 0)
+					return 0;
+				else 
+					return 1;
 			} else
 				return -1;
 		}
