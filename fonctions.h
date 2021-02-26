@@ -80,3 +80,17 @@
 	   strcpy(ts[pos].Constante,"oui");
 	}
 
+	// retourne 1 si l'entite est une constante + elle a une valeur
+	int constValeur(char entite[])
+	{
+		int pos;
+		pos=recherche(entite);
+		if(pos!=-1){
+			if(strcmp(ts[pos].Constante,"oui")==0){
+				// test si elle a une valeur
+				return 1;
+			} else
+				return -1;
+		}
+	}
+

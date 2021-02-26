@@ -44,7 +44,10 @@ INSTRU: INSTRU_AFFECTATION
         | INSTRU_LECTURE
          | INSTRU_ECRITURE
 ;
-INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg
+INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
+        if (constValeur($1) == 1)
+                printf("\nerreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
+}
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
 ;
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
@@ -98,14 +101,14 @@ DEC_CONST: mc_const TYPE idf pvg {
                 insererTYPE($3,sauvType);
                 insererConstante($3);
         } else 
-                printf("erreur semantique: double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
 }
             | mc_const TYPE idf mc_affectation VALEUR pvg {
                     if (doubleDeclaration($3)==0){
                                  insererTYPE($3,sauvType);
                                 insererConstante($3);
                     } else 
-                        printf("erreur semantique: double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                        printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
             }
 ;
 
