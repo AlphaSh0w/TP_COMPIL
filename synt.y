@@ -51,7 +51,10 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
         if (constValeur($1) == 1)
                 printf("\nerreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
 }
-                    |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg
+                    |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
+                            if(doubleDeclaration($1) == 0)
+                                printf("Erreur semantique, %s est un identifiant de table non declare a la ligne %d\n",$1,nb_ligne);
+                    }
 ;
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
 ;
@@ -92,12 +95,24 @@ LISTE_IDF: idf vrg LISTE_IDF
 ;	
 DEC_TAB: TYPE LISTE_IDF_TAB pvg
 ;
-LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB { if ($3<0)
-			                                        printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
-							 }
-              |idf_tab cr_ov cst cr_fr  { if ($3<0)
-			                        printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
-					}
+LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB 
+        {
+        if(doubleDeclaration($1)==0) 
+                insererTYPE($2,sauvType);
+        else
+                printf("Erreur semantique: double declaration de la table %s a la ligne %d\n",$2,nb_ligne);
+        if ($3<0)
+		printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+	}
+              |idf_tab cr_ov cst cr_fr  
+        { 
+        if(doubleDeclaration($1)==0) 
+                insererTYPE($2,sauvType);
+        else
+                printf("Erreur semantique: double declaration de la table %s a la ligne %d\n",$2,nb_ligne);
+        if ($3<0)
+                printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+	}
 ;	
 DEC_CONST: mc_const TYPE idf pvg {
         if (doubleDeclaration($3)==0){

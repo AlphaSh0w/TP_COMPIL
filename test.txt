@@ -23,6 +23,7 @@ main()
     $e := $a + $d + 3;
     $nondecl := 6;
     @tab2[0] := $b + $c;
+    @tab3[5] := 3;
     $nondecl := 5;
     ## La Boucle ##
     for($i := 0; $i <= 5; $i++){

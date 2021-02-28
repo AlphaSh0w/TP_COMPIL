@@ -34,7 +34,8 @@ Chaine { yylval.str=strdup("Chaine");
          yylval.str=strdup(yytext);
          return idf;
 		}
-{idf_tab} {yylval.str=strdup(yytext);
+{idf_tab} { inserer(yytext,"idf_tab");
+            yylval.str=strdup(yytext);
             return idf_tab;
 			}
 {constante} {  yylval.entier=atoi(yytext);
