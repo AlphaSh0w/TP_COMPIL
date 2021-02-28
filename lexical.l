@@ -7,7 +7,7 @@ extern YYSTYPE yylval;
 %}
 lettres [a-zA-Z]
 chiffres [0-9]
-constante {chiffres}+
+constante [-+]?{chiffres}+
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine ({lettres}|{chiffres})+
@@ -80,3 +80,4 @@ Out return mc_out;
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
    return err;  }
+
