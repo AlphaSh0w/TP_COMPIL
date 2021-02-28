@@ -21,6 +21,7 @@ main()
     $e := 5;
     $j := $c / $d;
     $e := $a + $d + 3;
+    $nondecl := 6;
     @tab2[0] := $b + $c;
     $nondecl := 5;
     ## La Boucle ##

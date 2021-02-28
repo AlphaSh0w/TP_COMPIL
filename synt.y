@@ -46,6 +46,8 @@ INSTRU: INSTRU_AFFECTATION
          | INSTRU_ECRITURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
+        if(doubleDeclaration($1) == 0)
+                printf("Erreur semantique, %s est un identifiant non declare a la ligne %d\n",$1,nb_ligne);
         if (constValeur($1) == 1)
                 printf("\nerreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
 }
