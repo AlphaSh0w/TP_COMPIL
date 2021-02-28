@@ -49,7 +49,7 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
         if(doubleDeclaration($1) == 0)
                 printf("Erreur semantique, %s est un identifiant non declare a la ligne %d\n",$1,nb_ligne);
         if (constValeur($1) == 1)
-                printf("\nerreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
+                printf("erreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
 }
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
                             if(doubleDeclaration($1) == 0)
@@ -83,14 +83,14 @@ LISTE_IDF: idf vrg LISTE_IDF
         if(doubleDeclaration($1)==0)
                 insererTYPE($1,sauvType);
 	else
-		printf("\nerreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+		printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
 }
           |idf
           {
                 if (doubleDeclaration($1)==0)
                         insererTYPE($1,sauvType);
 		else
-			printf("\nerreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
+			printf("erreur semantique: double declaration  de %s a la ligne %d\n",$1,nb_ligne);
           }
 ;	
 DEC_TAB: TYPE LISTE_IDF_TAB pvg
@@ -102,7 +102,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("Erreur semantique: double declaration de la table %s a la ligne %d\n",$2,nb_ligne);
         if ($3<0)
-		printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+		printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 	}
               |idf_tab cr_ov cst cr_fr  
         { 
@@ -111,7 +111,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("Erreur semantique: double declaration de la table %s a la ligne %d\n",$2,nb_ligne);
         if ($3<0)
-                printf("\nerreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
+                printf("erreur semantique, la taille de tableau %s doit etre positive a la ligne %d\n",$1,nb_ligne);
 	}
 ;	
 DEC_CONST: mc_const TYPE idf pvg {
@@ -119,14 +119,14 @@ DEC_CONST: mc_const TYPE idf pvg {
                 insererTYPE($3,sauvType);
                 insererConstante($3, "");
         } else 
-                printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
 }
             | mc_const TYPE idf mc_affectation VALEUR pvg {
                     if (doubleDeclaration($3)==0){
                                  insererTYPE($3,sauvType);
                                 insererConstante($3, tempValeur);
                     } else 
-                        printf("\nerreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
+                        printf("erreur semantique double declaration  de %s a la ligne %d\n",$3,nb_ligne);
             }
 ;
 
