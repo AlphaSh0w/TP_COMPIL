@@ -2,6 +2,7 @@
 int nb_ligne=1;
 char sauvType[20];
 char tempValeur[100];
+char typeValeur[20];
 %}
 
 %union {
@@ -127,13 +128,16 @@ DEC_CONST: mc_const TYPE idf pvg {
                                 insererConstante($3, tempValeur);
                     } else 
                         printf("erreur semantique a la ligne %d, double declaration  de %s\n",nb_ligne,$3);
+
+                        if (strcmp(typeValeur, sauvType) != 0)
+                                printf("erreur semantique a la ligne %d, non compatibilite de type de la constante %s", nb_ligne, $3);
             }
 ;
 
-VALEUR:val_reel {sprintf(tempValeur, "%f", $1);}
-        |val_entier {sprintf(tempValeur, "%d", $1);}
-        |mc_quot val_chaine mc_quot {strcpy(tempValeur,$2);}
-        |cst {sprintf(tempValeur, "%d", $1);}
+VALEUR:val_reel {strcpy(typeValeur,"Reel");   sprintf(tempValeur, "%f", $1);}
+        |val_entier {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
+        |mc_quot val_chaine mc_quot {strcpy(typeValeur,"Chaine");   strcpy(tempValeur,$2);}
+        |cst {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
 ;
 
 OPERAND: idf | val_entier | val_reel | cst |mc_quot val_chaine mc_quot

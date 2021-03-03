@@ -5,11 +5,11 @@ public class $ISIL_B {
 
 Entier $a, $b, $c, $d, $e, $sum;
 Reel $div;
-Entier @tab[-5],@tab2[3];
+Entier @tab[5],@tab2[3];
 CONST Entier $t;
 CONST Entier $i := 100;
 CONST Chaine $ch := "abc123";
-CONST Reel $j := 2.2;
+CONST Reel $j := 22;
 
 main()
 {
@@ -19,12 +19,8 @@ main()
     $e := $a - $b;
     $e := $c * $d;
     $e := 5;
-    $j := $c / $d;
     $e := $a + $d + 3;
-    $nondecl := 6;
     @tab2[0] := $b + $c;
-    @tab3[5] := 3;
-    $nondecl := 5;
     ## La Boucle ##
     for($i := 0; $i <= 5; $i++){
         $a := $i + 1;
