@@ -1,5 +1,4 @@
 import ISIL.lang;
-import ISIL.io;
 
 public class $ISIL_B {
 

@@ -3,6 +3,8 @@ int nb_ligne=1;
 char sauvType[20];
 char tempValeur[100];
 char typeValeur[20];
+int bibIoExiste = 0;
+int bibLangExiste = 0;
 %}
 
 %union {
@@ -11,7 +13,7 @@ char*   str;
 float   reel;
 }
 
-%token mc_import pvg bib_io bib_lang err mc_public 
+%token mc_import pvg <str>bib_io <str>bib_lang err mc_public 
        mc_private mc_protected mc_class <str>idf aco_ov aco_fr
 	   <str>mc_entier <str>mc_reel <str>mc_chaine vrg <str>idf_tab cr_ov cr_fr
 	   <entier>cst mc_const mc_affectation <entier>val_entier <str>val_chaine <reel>val_reel
@@ -60,9 +62,15 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
 ;
 
-INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg
+INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
+        if (bibIoExiste == 0)
+                printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
+}
 ;
-INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg
+INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg {
+        if (bibIoExiste == 0)
+                printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
+}
 ;
 SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
             |
@@ -162,8 +170,8 @@ LISTE_BIB: BIB LISTE_BIB
 ;		  
 BIB: mc_import NOM_BIB pvg
 ;
-NOM_BIB:bib_io
-         |bib_lang
+NOM_BIB:bib_io {bibIoExiste = 1;}
+         |bib_lang {bibLangExiste = 1;}
 ;		  
 %%
 main()

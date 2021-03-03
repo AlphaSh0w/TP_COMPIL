@@ -15,8 +15,12 @@ entier (-|\+){chiffres}+
 reel [-+]?{chiffres}+"."{chiffres}+
 %%
 import return mc_import;
-ISIL.io return bib_io;
-ISIL.lang return bib_lang;
+ISIL.io {  yylval.str=strdup("ISIL.io");
+		  return bib_io;
+		  }
+ISIL.lang {  yylval.str=strdup("ISIL.lang");
+		  return bib_lang;
+		  }
 public return mc_public;
 private return mc_private;
 protected return mc_protected;
