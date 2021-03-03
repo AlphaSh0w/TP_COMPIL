@@ -49,6 +49,8 @@ INSTRU: INSTRU_AFFECTATION
          | INSTRU_ECRITURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
+        if (bibLangExiste == 0)
+                printf("erreur semantique a la ligne %d, la bibliothèque ISIL.lang est manquante\n",nb_ligne);
         if(doubleDeclaration($1) == 0)
                 printf("erreur semantique a la ligne %d, l'identifiant %s n'est pas declaree\n",nb_ligne, $1);
         if (constValeur($1) == 1)
