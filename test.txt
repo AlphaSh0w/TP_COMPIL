@@ -1,4 +1,4 @@
-
+import ISIL.lang;
 import ISIL.io;
 
 public class $ISIL_B {
@@ -9,7 +9,7 @@ Entier @tab[5],@tab2[3];
 CONST Entier $t;
 CONST Entier $i := 100;
 CONST Chaine $ch := "abc123";
-CONST Reel $j := 22;
+CONST Reel $j := 2.2;
 
 main()
 {
@@ -28,8 +28,9 @@ main()
     }
 
     ## Lecture ##
-    In("%d", $a);
+    In("%f", $a);
     In("%d", $b);
+    In("%d", $div);
 
     $sum := $a + $b;
     $div := $a / $b;

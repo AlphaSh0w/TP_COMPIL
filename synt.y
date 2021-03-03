@@ -5,6 +5,7 @@ char tempValeur[100];
 char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
+char typeFormatage[20];
 %}
 
 %union {
@@ -67,6 +68,9 @@ INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg
 INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
+        
+        if (strcmp(typeEntite($7), typeFormatage) != 0)
+                printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s\n", nb_ligne, $7);
 }
 ;
 INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg {
@@ -156,7 +160,9 @@ OPERAND: idf | val_entier | val_reel | cst |mc_quot val_chaine mc_quot
 OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
 ;
 
-FORMATAGE: formatage_entier | formatage_reel | formatage_chaine
+FORMATAGE: formatage_entier {strcpy(typeFormatage,"Entier");}
+| formatage_reel {strcpy(typeFormatage,"Reel");}
+| formatage_chaine {strcpy(typeFormatage,"Chaine");}
 ;
 	  
 TYPE: mc_entier {strcpy(sauvType,$1);}

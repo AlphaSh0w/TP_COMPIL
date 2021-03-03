@@ -97,3 +97,12 @@
 		}
 	}
 
+	char* typeEntite(char entite[])
+	{
+		int pos;
+		pos=recherche(entite);
+		if(pos!=-1){
+			return ts[pos].TypeEntite;
+		} else
+			return "";
+	}
