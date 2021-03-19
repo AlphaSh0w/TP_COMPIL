@@ -139,8 +139,8 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
                 printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
 	}
 ;	
-LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {nbIdfSortie++;}
-                |idf {nbIdfSortie++;}
+LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {typesIdfsEcriture[nbIdfSortie]=typeEntite($idf); nbIdfSortie++;}
+                |idf {typesIdfsEcriture[nbIdfSortie]=typeEntite($idf); nbIdfSortie++;}
 
 ;
 DEC_CONST: mc_const TYPE idf pvg {
