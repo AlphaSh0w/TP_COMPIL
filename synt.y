@@ -6,6 +6,8 @@ char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
+int nbFormatagesSortie = 0;
+int nbIdfSortie = 0;
 %}
 
 %union {
@@ -78,7 +80,7 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg {
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
 }
 ;
-SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
+SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++;}| val_chaine SORTIE 
             |
 ;
 
@@ -95,6 +97,7 @@ DEC_VAR: TYPE LISTE_IDF pvg
 ;
 LISTE_IDF: idf vrg LISTE_IDF
 {
+        nbIdfSortie++;
         if(doubleDeclaration($1)==0)
                 insererTYPE($1,sauvType);
 	else
@@ -102,6 +105,7 @@ LISTE_IDF: idf vrg LISTE_IDF
 }
           |idf
           {
+                nbIdfSortie++;
                 if (doubleDeclaration($1)==0)
                         insererTYPE($1,sauvType);
 		else
