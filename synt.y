@@ -84,6 +84,20 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         if (nbIdfSortie != nbFormatagesSortie)
                 printf("erreur semantique a la ligne %d, Ecriture : le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
+        else
+        {
+                //on verifie la compatibilité des types des idfs et des formatages.
+                int i;
+                for(i = 0; i < nbIdfSortie;i++)
+                {
+                        if (strcmp(typesFormatagesEcriture[i],typesIdfsEcriture[i]) != 0)
+                        {
+                                //L'un des types n'est pas compatible
+                                printf("Erreur semantique a la ligne %d, Ecriture : le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,i+1);
+                                break;
+                        }
+                }
+        }
         nbIdfSortie = 0;
         nbFormatagesSortie = 0;
 }
