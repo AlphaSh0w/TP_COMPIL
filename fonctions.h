@@ -10,6 +10,14 @@ typedef struct
 	char Valeur[100];
 	int Taille;
 } TypeTS;
+
+typedef struct node
+{
+  TypeTS data;
+  struct node *next;
+};
+
+struct node *head;
 //initiation d'un tableau qui va contenir les elements de la table de symbole
 TypeTS ts[100];
 // un compteur global pour la table de symbole
@@ -19,11 +27,14 @@ int CpTabSym = 0;
 int recherche(char entite[])
 {
 	int i = 0;
-	while (i < CpTabSym)
+	struct node *temp = head;
+	printf("\n\nList elements are - \n");
+	while(temp != NULL)
 	{
-		if (strcmp(entite, ts[i].NomEntite) == 0)
+		if (strcmp(entite, temp->data.NomEntite) == 0)
 			return i;
 		i++;
+		temp = temp->next;
 	}
 
 	return -1;
@@ -35,11 +46,25 @@ void inserer(char entite[], char code[])
 
 	if (recherche(entite) == -1)
 	{
-		strcpy(ts[CpTabSym].NomEntite, entite);
-		strcpy(ts[CpTabSym].CodeEntite, code);
-		strcpy(ts[CpTabSym].Constante, "non");
-		ts[CpTabSym].Taille = 1;
-		CpTabSym++;
+
+		struct node *newNode;
+		newNode = malloc(sizeof(struct node));
+		strcpy(newNode->data.NomEntite, entite);
+		strcpy(newNode->data.CodeEntite, code);
+		strcpy(newNode->data.Constante, "non");
+		newNode->data.Taille = 1;
+		newNode->next = NULL;
+
+		if (head == NULL){
+			head = newNode;
+		} else {
+			struct node *temp = head;
+			while(temp->next != NULL){
+			temp = temp->next;
+			}
+			temp->next = newNode;
+		}
+		
 	}
 }
 //4-definir la fonction afficher
