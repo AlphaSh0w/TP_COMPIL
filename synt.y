@@ -102,11 +102,7 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
         nbFormatagesSortie = 0;
 }
 ;
-SORTIE:  FORMATAGE SORTIE {
-        strcpy(typesFormatagesEcriture[nbFormatagesSortie],typeFormatage);
-        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
-        nbFormatagesSortie++;
-        }
+SORTIE:  FORMATAGE_ECRITURE SORTIE 
         | val_chaine SORTIE 
         |
 ;
@@ -205,6 +201,20 @@ FORMATAGE: formatage_entier {strcpy(typeFormatage,"Entier");}
 | formatage_reel {strcpy(typeFormatage,"Reel");}
 | formatage_chaine {strcpy(typeFormatage,"Chaine");}
 ;
+
+FORMATAGE_ECRITURE: formatage_entier {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Entier");
+        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
+| formatage_reel {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Reel");
+        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
+| formatage_chaine {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Chaine");
+        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
+;
 	  
 TYPE: mc_entier {strcpy(sauvType,$1);}
         |mc_reel {strcpy(sauvType,$1);}
@@ -231,3 +241,4 @@ yyerror(char*msg)
 {
 printf("\nerreur syntaxique a la ligne %d\n", nb_ligne);
 }
+
