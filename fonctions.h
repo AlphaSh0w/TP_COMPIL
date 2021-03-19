@@ -111,6 +111,27 @@ void insererTYPE(char entite[], char type[])
 	}
 }
 
+struct node *get(int pos)
+{
+	struct node *temp,*ptr;
+	if(pos==0)
+                {
+						return head;
+                }
+                else
+                {
+                        ptr=head;
+						int i;
+                        for(i=0;i<pos;i++) {
+							temp=ptr;
+							ptr=ptr->next ;
+                        }
+						if (i == pos && ptr != NULL){
+							return ptr;
+						}
+                }
+}
+
 void insererTaille(char entite[], int taille)
 {
 	int pos;
