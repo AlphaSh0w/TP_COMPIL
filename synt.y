@@ -6,8 +6,12 @@ char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
+//déclarer les variables qui seront utiliser pour la sémantique des sorties écritures.
 int nbFormatagesSortie = 0;
 int nbIdfSortie = 0;
+//initialiser des tableaux qui seront utilisé pour la sémantique des sorties écritures.
+char typesFormatagesEcriture[10][20];
+char typesIdfsEcriture[10][20];
 %}
 
 %union {
@@ -57,7 +61,7 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
         if(doubleDeclaration($1) == 0)
                 printf("erreur semantique a la ligne %d, l'identifiant %s n'est pas declaree\n",nb_ligne, $1);
         if (constValeur($1) == 1)
-                printf("erreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
+                printf("erreur semantique a la ligne %d, la constante %s a deja une valeur.\n", nb_ligne, $1);
 }
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
                             if(doubleDeclaration($1) == 0)
@@ -71,21 +75,37 @@ INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         
-        if (strcmp(typeEntite($7), typeFormatage) != 0)
-                printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s\n", nb_ligne, $7);
+        if (strcmp((char*)typeEntite($7), typeFormatage) != 0)
+                printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s.\n", nb_ligne, $7);
 }
 ;
 INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par_fr pvg {
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         if (nbIdfSortie != nbFormatagesSortie)
-                printf("erreur semantique a la ligne %d, Ecriture : le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
+                printf("erreur semantique a la ligne %d, le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
+        else
+        {
+                //on verifie la compatibilité des types des idfs et des formatages.
+                int indexFormatages;
+                int indexIdfs = nbIdfSortie - 1;
+                for(indexFormatages = 0; indexFormatages < nbIdfSortie; ++indexFormatages,--indexIdfs)
+                {
+                        if (strcmp(typesFormatagesEcriture[indexFormatages],typesIdfsEcriture[indexIdfs]) != 0)
+                        {
+                                //L'un des types n'est pas compatible
+                                printf("Erreur semantique a la ligne %d, le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,indexFormatages+1);
+                                break;
+                        }
+                }
+        }
         nbIdfSortie = 0;
         nbFormatagesSortie = 0;
 }
 ;
-SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++;}| val_chaine SORTIE 
-            |
+SORTIE:  FORMATAGE_ECRITURE SORTIE 
+        | val_chaine SORTIE 
+        |
 ;
 
 
@@ -123,7 +143,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
-		printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
+		printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive.\n",nb_ligne, $1);
 	}
               |idf_tab cr_ov cst cr_fr  
         { 
@@ -132,11 +152,19 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
-                printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
+                printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive.\n",nb_ligne, $1);
 	}
 ;	
-LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {nbIdfSortie++;}
-                |idf {nbIdfSortie++;}
+LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {
+        strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+        //printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
+        nbIdfSortie++;
+        }
+                |idf {
+                        strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+                        //printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
+                        nbIdfSortie++;
+                }
 
 ;
 DEC_CONST: mc_const TYPE idf pvg {
@@ -154,7 +182,7 @@ DEC_CONST: mc_const TYPE idf pvg {
                         printf("erreur semantique a la ligne %d, double declaration  de %s\n",nb_ligne,$3);
 
                         if (strcmp(typeValeur, sauvType) != 0)
-                                printf("erreur semantique a la ligne %d, non compatibilite de type de la constante %s", nb_ligne, $3);
+                                printf("erreur semantique a la ligne %d, non compatibilite du type de la constante %s.", nb_ligne, $3);
             }
 ;
 
@@ -173,6 +201,20 @@ OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
 FORMATAGE: formatage_entier {strcpy(typeFormatage,"Entier");}
 | formatage_reel {strcpy(typeFormatage,"Reel");}
 | formatage_chaine {strcpy(typeFormatage,"Chaine");}
+;
+
+FORMATAGE_ECRITURE: formatage_entier {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Entier");
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
+| formatage_reel {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Reel");
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
+| formatage_chaine {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Chaine");
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        nbFormatagesSortie++;}
 ;
 	  
 TYPE: mc_entier {strcpy(sauvType,$1);}
@@ -200,3 +242,4 @@ yyerror(char*msg)
 {
 printf("\nerreur syntaxique a la ligne %d\n", nb_ligne);
 }
+
