@@ -79,12 +79,12 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         if (nbIdfSortie != nbFormatagesSortie)
-                printf("erreur semantique a la ligne %d, le nombre de formatages n'est pas égale au nombre d'idf.\n");
+                printf("erreur semantique a la ligne %d, Ecriture : le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
         nbIdfSortie = 0;
         nbFormatagesSortie = 0;
 }
 ;
-SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++; printf("formatage sortie +1 : %d\n",nbFormatagesSortie);}| val_chaine SORTIE 
+SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++;}| val_chaine SORTIE 
             |
 ;
 
@@ -101,8 +101,6 @@ DEC_VAR: TYPE LISTE_IDF pvg
 ;
 LISTE_IDF: idf vrg LISTE_IDF
 {
-        nbIdfSortie++;
-        printf("idf sortie++ : %d\n",nbIdfSortie);
         if(doubleDeclaration($1)==0)
                 insererTYPE($1,sauvType);
 	else
@@ -110,8 +108,6 @@ LISTE_IDF: idf vrg LISTE_IDF
 }
           |idf
           {
-                nbIdfSortie++;
-                printf("idf sortie++ : %d\n",nbIdfSortie);
                 if (doubleDeclaration($1)==0)
                         insererTYPE($1,sauvType);
 		else
@@ -139,8 +135,8 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
                 printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
 	}
 ;	
-LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE
-                |idf
+LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {nbIdfSortie++;}
+                |idf {nbIdfSortie++;}
 
 ;
 DEC_CONST: mc_const TYPE idf pvg {
