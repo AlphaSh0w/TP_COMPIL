@@ -138,8 +138,10 @@ DEC_TAB: TYPE LISTE_IDF_TAB pvg
 ;
 LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB 
         {
-        if(doubleDeclaration($1)==0) 
+        if(doubleDeclaration($1)==0) {
                 insererTYPE($2,sauvType);
+                insererTaille($2, $3);
+        }
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
@@ -147,8 +149,10 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
 	}
               |idf_tab cr_ov cst cr_fr  
         { 
-        if(doubleDeclaration($1)==0) 
+        if(doubleDeclaration($1)==0) {
                 insererTYPE($2,sauvType);
+                insererTaille($2, $3);
+        }
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
