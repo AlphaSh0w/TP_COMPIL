@@ -36,7 +36,8 @@ main()
     $div := $a / $b;
 
     ## Ecriture ##
-    ## Out("la somme est %d et la devision est %f", $sum, $div); ##
+    Out("la somme est %d et la devision est %f", $sum, $div);
+    Out("la somme est %d et la devision est %f", $sum);
 
     ## Commentaire avec un # test ##
 

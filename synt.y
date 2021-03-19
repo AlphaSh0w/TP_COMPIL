@@ -6,6 +6,8 @@ char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
+int nbFormatagesSortie = 0;
+int nbIdfSortie = 0;
 %}
 
 %union {
@@ -73,12 +75,16 @@ INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
                 printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s\n", nb_ligne, $7);
 }
 ;
-INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF par_fr pvg {
+INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par_fr pvg {
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
+        if (nbIdfSortie != nbFormatagesSortie)
+                printf("erreur semantique a la ligne %d, Ecriture : le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
+        nbIdfSortie = 0;
+        nbFormatagesSortie = 0;
 }
 ;
-SORTIE:  FORMATAGE SORTIE | val_chaine SORTIE 
+SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++;}| val_chaine SORTIE 
             |
 ;
 
@@ -129,6 +135,10 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
                 printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
 	}
 ;	
+LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {nbIdfSortie++;}
+                |idf {nbIdfSortie++;}
+
+;
 DEC_CONST: mc_const TYPE idf pvg {
         if (doubleDeclaration($3)==0){
                 insererTYPE($3,sauvType);
