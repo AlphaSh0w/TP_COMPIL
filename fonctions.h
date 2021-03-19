@@ -19,9 +19,9 @@ typedef struct node
 
 struct node *head;
 //initiation d'un tableau qui va contenir les elements de la table de symbole
-TypeTS ts[100];
+// TypeTS ts[100];
 // un compteur global pour la table de symbole
-int CpTabSym = 0;
+// int CpTabSym = 0;
 
 //2- definir une fonction recherche
 int recherche(char entite[])
@@ -92,16 +92,24 @@ struct node *get(int pos)
 //4-definir la fonction afficher
 void afficher()
 {
-	printf("\n\n/*****************************Table des symboles****************************/\n");
-	printf("_____________________________________________________________________________\n");
-	printf("| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur   |  Taille\n");
-	printf("_____________________________________________________________________________\n");
-	int i = 0;
-	while (i < CpTabSym)
-	{
-		printf("|%10s |%12s | %12s |%12s |%12s |	%d\n", ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].Constante, ts[i].Valeur, ts[i].Taille);
-		i++;
-	}
+	struct node *ptr;
+        if(head==NULL)
+        {
+                printf("\nLe tableau est vide\n");
+        }
+        else
+        {
+                ptr=head;
+				printf("\n\n/*****************************Table des symboles****************************/\n");
+				printf("_____________________________________________________________________________\n");
+				printf("| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur   |  Taille\n");
+				printf("_____________________________________________________________________________\n");
+                while(ptr!=NULL)
+                {
+                        printf("|%10s |%12s | %12s |%12s |%12s |	%d\n", ptr->data.NomEntite, ptr->data.CodeEntite, ptr->data.TypeEntite, ptr->data.Constante, ptr->data.Valeur, ptr->data.Taille);
+                        ptr=ptr->next ;
+                }
+        }
 }
 
 //5-definir une focntion pour inserer le type
