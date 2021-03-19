@@ -15,7 +15,7 @@ typedef struct node
 {
   TypeTS data;
   struct node *next;
-};
+} node;
 
 struct node *head;
 //initiation d'un tableau qui va contenir les elements de la table de symbole
@@ -28,7 +28,6 @@ int recherche(char entite[])
 {
 	int i = 0;
 	struct node *temp = head;
-	printf("\n\nList elements are - \n");
 	while(temp != NULL)
 	{
 		if (strcmp(entite, temp->data.NomEntite) == 0)
@@ -85,7 +84,8 @@ struct node *get(int pos)
                         }
 						if (i == pos && ptr != NULL){
 							return ptr;
-						}
+						} else
+							return NULL;
                 }
 }
 
