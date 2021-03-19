@@ -67,6 +67,28 @@ void inserer(char entite[], char code[])
 		
 	}
 }
+
+struct node *get(int pos)
+{
+	struct node *temp,*ptr;
+	if(pos==0)
+                {
+						return head;
+                }
+                else
+                {
+                        ptr=head;
+						int i;
+                        for(i=0;i<pos;i++) {
+							temp=ptr;
+							ptr=ptr->next ;
+                        }
+						if (i == pos && ptr != NULL){
+							return ptr;
+						}
+                }
+}
+
 //4-definir la fonction afficher
 void afficher()
 {
@@ -111,27 +133,6 @@ void insererTYPE(char entite[], char type[])
 	}
 }
 
-struct node *get(int pos)
-{
-	struct node *temp,*ptr;
-	if(pos==0)
-                {
-						return head;
-                }
-                else
-                {
-                        ptr=head;
-						int i;
-                        for(i=0;i<pos;i++) {
-							temp=ptr;
-							ptr=ptr->next ;
-                        }
-						if (i == pos && ptr != NULL){
-							return ptr;
-						}
-                }
-}
-
 void insererTaille(char entite[], int taille)
 {
 	int pos;
@@ -164,7 +165,8 @@ int doubleDeclaration(char entite[])
 {
 	int pos;
 	pos = recherche(entite);
-	if (strcmp(ts[pos].TypeEntite, "") == 0)
+	struct node *ourNode = get(pos);
+	if (strcmp(ourNode->data.TypeEntite, "") == 0)
 		return 0;
 	else
 		return -1;
@@ -172,11 +174,31 @@ int doubleDeclaration(char entite[])
 
 void insererConstante(char entite[], char valeur[])
 {
+	struct node *temp,*ptr;
 	int pos;
 	pos = recherche(entite);
-	if (pos != -1)
-		strcpy(ts[pos].Constante, "oui");
-	strcpy(ts[pos].Valeur, valeur);
+	if (pos != -1){
+		if (head != NULL){
+			if(pos==0)
+                {
+						strcpy(head->data.Constante, "oui");
+						strcpy(head->data.Valeur, valeur);
+                }
+                else
+                {
+                        ptr=head;
+						int i;
+                        for(i=0;i<pos;i++) {
+							temp=ptr;
+							ptr=ptr->next ;
+                        }
+						if (i == pos && ptr != NULL){
+							strcpy(ptr->data.Constante, "oui");
+							strcpy(ptr->data.Valeur, valeur);
+						}
+                }
+		}
+	}
 }
 
 // retourne 1 si l'entite est une constante + elle a une valeur
