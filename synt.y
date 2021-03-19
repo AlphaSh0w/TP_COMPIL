@@ -88,8 +88,12 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
         nbFormatagesSortie = 0;
 }
 ;
-SORTIE:  FORMATAGE SORTIE {nbFormatagesSortie++;}| val_chaine SORTIE 
-            |
+SORTIE:  FORMATAGE SORTIE {
+        strcpy(typesFormatagesEcriture[nbFormatagesSortie],typeFormatage);
+        nbFormatagesSortie++;
+        }
+        | val_chaine SORTIE 
+        |
 ;
 
 
