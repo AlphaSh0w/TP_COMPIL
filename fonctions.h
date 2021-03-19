@@ -52,6 +52,8 @@ void inserer(char entite[], char code[])
 		strcpy(newNode->data.CodeEntite, code);
 		strcpy(newNode->data.Constante, "non");
 		newNode->data.Taille = 1;
+		strcpy(newNode->data.TypeEntite, "");
+		strcpy(newNode->data.Valeur, "");
 		newNode->next = NULL;
 
 		if (head == NULL){
@@ -102,7 +104,7 @@ void afficher()
                 ptr=head;
 				printf("\n\n/*****************************Table des symboles****************************/\n");
 				printf("_____________________________________________________________________________\n");
-				printf("| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur   |  Taille\n");
+				printf("| NomEntite |  CodeEntite | TypeEntite   |  Constante   |  Valeur   |  Taille\n");
 				printf("_____________________________________________________________________________\n");
                 while(ptr!=NULL)
                 {
