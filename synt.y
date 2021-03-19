@@ -6,8 +6,12 @@ char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
+//déclarer les variables qui seront utiliser pour la sémantique des sorties écritures.
 int nbFormatagesSortie = 0;
 int nbIdfSortie = 0;
+//initialiser des tableaux qui seront utilisé pour la sémantique des sorties écritures.
+char typesFormatagesEcriture[10][20];
+char typesIdfsEcriture[10][20];
 %}
 
 %union {
