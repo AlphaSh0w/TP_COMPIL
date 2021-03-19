@@ -104,6 +104,7 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
 ;
 SORTIE:  FORMATAGE SORTIE {
         strcpy(typesFormatagesEcriture[nbFormatagesSortie],typeFormatage);
+        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
         nbFormatagesSortie++;
         }
         | val_chaine SORTIE 
@@ -159,10 +160,12 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
 ;	
 LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {
         strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+        printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
         nbIdfSortie++;
         }
                 |idf {
                         strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+                        printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
                         nbIdfSortie++;
                 }
 
