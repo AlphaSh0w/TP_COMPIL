@@ -87,17 +87,55 @@ void afficher()
 void insererTYPE(char entite[], char type[])
 {
 	int pos;
+	struct node *temp,*ptr;
 	pos = recherche(entite);
-	if (pos != -1)
-		strcpy(ts[pos].TypeEntite, type);
+	if (pos != -1){
+		if (head != NULL){
+			if(pos==0)
+                {
+						strcpy(head->data.TypeEntite, type);
+                }
+                else
+                {
+                        ptr=head;
+						int i;
+                        for(i=0;i<pos;i++) {
+							temp=ptr;
+							ptr=ptr->next ;
+                        }
+						if (i == pos && ptr != NULL){
+							strcpy(ptr->data.TypeEntite, type);
+						}
+                }
+		}
+	}
 }
 
 void insererTaille(char entite[], int taille)
 {
 	int pos;
+	struct node *temp,*ptr;
 	pos = recherche(entite);
-	if (pos != -1)
-		ts[pos].Taille = taille;
+	if (pos != -1){
+		if (head != NULL){
+			if(pos==0)
+                {
+						head->data.Taille = taille;
+                }
+                else
+                {
+                        ptr=head;
+						int i;
+                        for(i=0;i<pos;i++) {
+							temp=ptr;
+							ptr=ptr->next ;
+                        }
+						if (i == pos && ptr != NULL){
+							ptr->data.Taille = taille;
+						}
+                }
+		}
+	}
 }
 
 //6- definir une focntion qui detecte la double declaration
