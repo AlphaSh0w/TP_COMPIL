@@ -61,7 +61,7 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
         if(doubleDeclaration($1) == 0)
                 printf("erreur semantique a la ligne %d, l'identifiant %s n'est pas declaree\n",nb_ligne, $1);
         if (constValeur($1) == 1)
-                printf("erreur semantique a la ligne %d, la constante %s elle a deja une valeur\n", nb_ligne, $1);
+                printf("erreur semantique a la ligne %d, la constante %s a deja une valeur.\n", nb_ligne, $1);
 }
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
                             if(doubleDeclaration($1) == 0)
@@ -76,7 +76,7 @@ INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         
         if (strcmp((char*)typeEntite($7), typeFormatage) != 0)
-                printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s\n", nb_ligne, $7);
+                printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s.\n", nb_ligne, $7);
 }
 ;
 INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par_fr pvg {
@@ -143,7 +143,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
-		printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
+		printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive.\n",nb_ligne, $1);
 	}
               |idf_tab cr_ov cst cr_fr  
         { 
@@ -152,7 +152,7 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
         else
                 printf("erreur semantique a la ligne %d, double declaration de la table %s\n",nb_ligne, $2);
         if ($3<0)
-                printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
+                printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive.\n",nb_ligne, $1);
 	}
 ;	
 LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {
@@ -182,7 +182,7 @@ DEC_CONST: mc_const TYPE idf pvg {
                         printf("erreur semantique a la ligne %d, double declaration  de %s\n",nb_ligne,$3);
 
                         if (strcmp(typeValeur, sauvType) != 0)
-                                printf("erreur semantique a la ligne %d, non compatibilite de type de la constante %s", nb_ligne, $3);
+                                printf("erreur semantique a la ligne %d, non compatibilite du type de la constante %s.", nb_ligne, $3);
             }
 ;
 
