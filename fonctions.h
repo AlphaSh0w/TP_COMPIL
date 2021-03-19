@@ -208,9 +208,10 @@ int constValeur(char entite[])
 	pos = recherche(entite);
 	if (pos != -1)
 	{
-		if (strcmp(ts[pos].Constante, "oui") == 0)
+		struct node *ourNode = get(pos);
+		if (strcmp(ourNode->data.Constante, "oui") == 0)
 		{
-			if (strcmp(ts[pos].Valeur, "") == 0)
+			if (strcmp(ourNode->data.Valeur, "") == 0)
 				return 0;
 			else
 				return 1;
@@ -226,7 +227,8 @@ char *typeEntite(char entite[])
 	pos = recherche(entite);
 	if (pos != -1)
 	{
-		return ts[pos].TypeEntite;
+		struct node *ourNode = get(pos);
+		return ourNode->data.TypeEntite;
 	}
 	else
 		return "";
@@ -238,7 +240,8 @@ int tailleTableau(char entite[])
 	pos = recherche(entite);
 	if (pos != -1)
 	{
-		return ts[pos].Taille;
+		struct node *ourNode = get(pos);
+		return ourNode->data.Taille;
 	}
 	else
 		return -1;
