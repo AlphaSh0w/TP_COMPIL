@@ -125,3 +125,15 @@ char *typeEntite(char entite[])
 	else
 		return "";
 }
+
+int tailleTableau(char entite[])
+{
+	int pos;
+	pos = recherche(entite);
+	if (pos != -1)
+	{
+		return ts[pos].Taille;
+	}
+	else
+		return -1;
+}

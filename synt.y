@@ -64,8 +64,10 @@ INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
                 printf("erreur semantique a la ligne %d, la constante %s a deja une valeur.\n", nb_ligne, $1);
 }
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
-                            if(doubleDeclaration($1) == 0)
+                        if(doubleDeclaration($1) == 0)
                                 printf("erreur semantique a la ligne %d, l'identifiant de table %s n'est pas declaree\n",nb_ligne, $1);
+                        if ($3 >= tailleTableau($1))
+                                printf("erreur semantique a la ligne %d, depassement de la taille du tableau %s\n",nb_ligne, $1);
                     }
 ;
 INSTRU_FOR: mc_for par_ov idf mc_affectation cst pvg idf COMPARAISON OPERAND pvg idf mc_incrmnt par_fr aco_ov LISTE_INSTRU aco_fr
