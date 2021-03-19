@@ -21,7 +21,6 @@ main()
     $e := 5;
     $e := $a + $d + 3;
     @tab2[0] := $b + $c;
-    $i := 5;
     ## La Boucle ##
     for($i := 0; $i <= 5; $i++){
         $a := $i + 1;
@@ -29,16 +28,16 @@ main()
     }
 
     ## Lecture ##
-    In("%f", $a);
-    In("%d", $b);
-    In("%d", $div);
+    ## In("%f", $a); ## 
+    ## In("%d", $b); ## 
+    ## In("%d", $div); ## 
 
     $sum := $a + $b;
     $div := $a / $b;
 
     ## Ecriture ##
-    Out("la somme est %d et la devision est %d", $sum, $div);
-    Out("la somme est %d et la devision est %d", $sum, $div, $sum);
+    ## Out("la somme est %d et la devision est %d", $sum, $div); ## 
+    ## Out("la somme est %d et la devision est %d", $sum, $div, $sum); ## 
     ## Commentaire avec un # test ##
 
     ## Analyse Semantique ##

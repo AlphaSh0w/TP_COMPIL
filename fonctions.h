@@ -8,6 +8,7 @@ typedef struct
 	char TypeEntite[20];
 	char Constante[4];
 	char Valeur[100];
+	int Taille;
 } TypeTS;
 //initiation d'un tableau qui va contenir les elements de la table de symbole
 TypeTS ts[100];
@@ -37,6 +38,7 @@ void inserer(char entite[], char code[])
 		strcpy(ts[CpTabSym].NomEntite, entite);
 		strcpy(ts[CpTabSym].CodeEntite, code);
 		strcpy(ts[CpTabSym].Constante, "non");
+		ts[CpTabSym].Taille = 1;
 		CpTabSym++;
 	}
 }
@@ -45,12 +47,12 @@ void afficher()
 {
 	printf("\n\n/*****************************Table des symboles****************************/\n");
 	printf("_____________________________________________________________________________\n");
-	printf("\t| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur\n");
+	printf("| NomEntite |  CodeEntite | TyepEntite   |  Constante   |  Valeur   |  Taille\n");
 	printf("_____________________________________________________________________________\n");
 	int i = 0;
 	while (i < CpTabSym)
 	{
-		printf("\t|%10s |%12s | %12s |%12s |%12s\n", ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].Constante, ts[i].Valeur);
+		printf("|%10s |%12s | %12s |%12s |%12s |	%d\n", ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].Constante, ts[i].Valeur, ts[i].Taille);
 		i++;
 	}
 }
@@ -64,6 +66,15 @@ void insererTYPE(char entite[], char type[])
 	if (pos != -1)
 		strcpy(ts[pos].TypeEntite, type);
 }
+
+void insererTaille(char entite[], int taille)
+{
+	int pos;
+	pos = recherche(entite);
+	if (pos != -1)
+		ts[pos].Taille = taille;
+}
+
 //6- definir une focntion qui detecte la double declaration
 int doubleDeclaration(char entite[])
 {
@@ -113,4 +124,16 @@ char *typeEntite(char entite[])
 	}
 	else
 		return "";
+}
+
+int tailleTableau(char entite[])
+{
+	int pos;
+	pos = recherche(entite);
+	if (pos != -1)
+	{
+		return ts[pos].Taille;
+	}
+	else
+		return -1;
 }
