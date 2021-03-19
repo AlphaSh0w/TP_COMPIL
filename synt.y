@@ -87,13 +87,14 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
         else
         {
                 //on verifie la compatibilité des types des idfs et des formatages.
-                int i;
-                for(i = 0; i < nbIdfSortie;i++)
+                int indexFormatages;
+                int indexIdfs = nbIdfSortie - 1;
+                for(indexFormatages = 0; indexFormatages < nbIdfSortie; ++indexFormatages,--indexIdfs)
                 {
-                        if (strcmp(typesFormatagesEcriture[i],typesIdfsEcriture[i]) != 0)
+                        if (strcmp(typesFormatagesEcriture[indexFormatages],typesIdfsEcriture[indexIdfs]) != 0)
                         {
                                 //L'un des types n'est pas compatible
-                                printf("Erreur semantique a la ligne %d, Ecriture : le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,i+1);
+                                printf("Erreur semantique a la ligne %d, Ecriture : le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,indexFormatages+1);
                                 break;
                         }
                 }
