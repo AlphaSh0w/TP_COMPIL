@@ -7,7 +7,7 @@ extern YYSTYPE yylval;
 %}
 lettres [a-zA-Z]
 chiffres [0-9]
-constante [-+]?{chiffres}+
+constante {chiffres}+
 idf "$"{lettres}({lettres}|{chiffres}|_)*
 idf_tab "@"{lettres}({lettres}|{chiffres}|_)*
 chaine ({lettres}|{chiffres})+
