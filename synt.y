@@ -83,7 +83,7 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         if (nbIdfSortie != nbFormatagesSortie)
-                printf("erreur semantique a la ligne %d, Ecriture : le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
+                printf("erreur semantique a la ligne %d, le nombre de formatages n'est pas egale au nombre d'idf.\n", nb_ligne);
         else
         {
                 //on verifie la compatibilité des types des idfs et des formatages.
@@ -94,7 +94,7 @@ INSTRU_ECRITURE: mc_out par_ov mc_quot SORTIE mc_quot vrg LISTE_IDF_ECRITURE par
                         if (strcmp(typesFormatagesEcriture[indexFormatages],typesIdfsEcriture[indexIdfs]) != 0)
                         {
                                 //L'un des types n'est pas compatible
-                                printf("Erreur semantique a la ligne %d, Ecriture : le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,indexFormatages+1);
+                                printf("Erreur semantique a la ligne %d, le type de l'idf %d n'est pas compatible avec son formattage.\n",nb_ligne,indexFormatages+1);
                                 break;
                         }
                 }
@@ -157,12 +157,12 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
 ;	
 LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {
         strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
-        printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
+        //printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
         nbIdfSortie++;
         }
                 |idf {
                         strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
-                        printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
+                        //printf("Type idf %d sortie : %s\n",nbIdfSortie+1,typesIdfsEcriture[nbIdfSortie]);
                         nbIdfSortie++;
                 }
 
@@ -205,15 +205,15 @@ FORMATAGE: formatage_entier {strcpy(typeFormatage,"Entier");}
 
 FORMATAGE_ECRITURE: formatage_entier {
         strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Entier");
-        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
         nbFormatagesSortie++;}
 | formatage_reel {
         strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Reel");
-        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
         nbFormatagesSortie++;}
 | formatage_chaine {
         strcpy(typesFormatagesEcriture[nbFormatagesSortie],"Chaine");
-        printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
+        //printf("Type formatage %d sortie : %s\n",nbFormatagesSortie+1,typesFormatagesEcriture[nbFormatagesSortie]);
         nbFormatagesSortie++;}
 ;
 	  
