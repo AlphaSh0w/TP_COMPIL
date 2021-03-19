@@ -75,7 +75,7 @@ INSTRU_LECTURE: mc_in par_ov mc_quot FORMATAGE mc_quot vrg idf par_fr pvg {
         if (bibIoExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.io est manquante\n", nb_ligne);
         
-        if (strcmp(typeEntite($7), typeFormatage) != 0)
+        if (strcmp((char*)typeEntite($7), typeFormatage) != 0)
                 printf("erreur semantique a la ligne %d, non compatibilite de formatage de l'idf %s\n", nb_ligne, $7);
 }
 ;
@@ -139,8 +139,14 @@ LISTE_IDF_TAB: idf_tab cr_ov cst cr_fr vrg LISTE_IDF_TAB
                 printf("erreur semantique a la ligne %d, la taille de tableau %s doit etre positive\n",nb_ligne, $1);
 	}
 ;	
-LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {typesIdfsEcriture[nbIdfSortie]=typeEntite($idf); nbIdfSortie++;}
-                |idf {typesIdfsEcriture[nbIdfSortie]=typeEntite($idf); nbIdfSortie++;}
+LISTE_IDF_ECRITURE: idf vrg LISTE_IDF_ECRITURE {
+        strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+        nbIdfSortie++;
+        }
+                |idf {
+                        strcpy(typesIdfsEcriture[nbIdfSortie],(char*)typeEntite($1));
+                        nbIdfSortie++;
+                }
 
 ;
 DEC_CONST: mc_const TYPE idf pvg {
