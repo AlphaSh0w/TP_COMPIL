@@ -97,7 +97,7 @@ Out {nb_colonne += yyleng; return mc_out;}
 		    }
 [ ] {nb_colonne += yyleng;}
 [\t] {nb_colonne += yyleng;}
-[\n] {nb_colonne += yyleng; nb_ligne++;}
+[\n] {nb_colonne = 1; nb_ligne++;}
 . {printf("erreur lexicale a ligne %d colonne %d sur l'entite %s\n",nb_ligne,nb_colonne,yytext);
    return err;  }
 

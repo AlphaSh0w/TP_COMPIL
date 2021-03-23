@@ -14,7 +14,7 @@ CONST Reel $j := 2.2;
 main()
 {
     ## Les Affectation ##
-    $e := $a;
+    $e := a;
     $e := $a + $b;
     $e := $a - $b;
     $e := $c * $d;

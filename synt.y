@@ -252,6 +252,6 @@ afficher();}
 yywrap() {}
 yyerror(char*msg)
 {
-printf("\nerreur syntaxique a la ligne %d\n", nb_ligne);
+printf("\nerreur syntaxique a la ligne %d colonne %d.\n", nb_ligne,nb_colonne);
 }
 
