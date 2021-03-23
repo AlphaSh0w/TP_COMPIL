@@ -6,6 +6,8 @@ char typeValeur[20];
 int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
+char sauvOpr[20];
+int sauvConst;
 //déclarer les variables qui seront utiliser pour la sémantique des sorties écritures.
 int nbFormatagesSortie = 0;
 int nbIdfSortie = 0;
@@ -27,7 +29,7 @@ float   reel;
        mc_main par_ov par_fr mc_for
        mc_egal mc_sup mc_supEgal mc_inf mc_infEgal mc_diff mc_incrmnt
        mc_in mc_out mc_quot formatage_entier formatage_reel formatage_chaine
-        mc_plus mc_mois mc_mul mc_div
+        mc_plus mc_mois mc_mul <str>mc_div
 
 %%
 S: LISTE_BIB HEADER_CLASS aco_ov CORPS aco_fr{printf("\npgm syntaxiquement correcte"); 
@@ -111,7 +113,10 @@ SORTIE:  FORMATAGE_ECRITURE SORTIE
 ;
 
 
-EXPRESSION: OPERAND OPERATEUR EXPRESSION
+EXPRESSION: OPERAND OPERATEUR EXPRESSION {
+        if((strcmp(sauvOpr,"/")==0) && (sauvConst==0))
+        printf("erreur semantique a la ligne %d, division sur zero\n", nb_ligne);
+        }
            |OPERAND
 ;
 
@@ -198,10 +203,10 @@ VALEUR:val_reel {strcpy(typeValeur,"Reel");   sprintf(tempValeur, "%f", $1);}
         |cst {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
 ;
 
-OPERAND: idf | val_entier | val_reel | cst |mc_quot val_chaine mc_quot
+OPERAND: idf | val_entier | val_reel | cst { sauvConst=$1; } |mc_quot val_chaine mc_quot
 ;
 
-OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div
+OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div { strcpy(sauvOpr,$1); }
 ;
 
 FORMATAGE: formatage_entier {strcpy(typeFormatage,"Entier");}

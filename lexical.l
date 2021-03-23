@@ -54,7 +54,8 @@ Chaine { yylval.str=strdup("Chaine");
 "+" return mc_plus;
 "-" return mc_mois;
 "*" return mc_mul;
-"/" return mc_div;
+"/" {yylval.str=strdup(yytext);
+             return mc_div;}
 "==" return mc_egal;
 ">" return mc_sup;
 ">=" return mc_supEgal;
