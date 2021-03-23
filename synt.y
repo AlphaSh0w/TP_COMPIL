@@ -1,5 +1,6 @@
 %{
 int nb_ligne=1;
+int nb_colonne=1;
 char sauvType[20];
 char tempValeur[100];
 char typeValeur[20];
@@ -251,6 +252,6 @@ afficher();}
 yywrap() {}
 yyerror(char*msg)
 {
-printf("\nerreur syntaxique a la ligne %d\n", nb_ligne);
+printf("\nerreur syntaxique a la ligne %d colonne %d.\n", nb_ligne,nb_colonne);
 }
 
