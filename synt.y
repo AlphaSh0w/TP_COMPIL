@@ -1,5 +1,6 @@
 %{
 int nb_ligne=1;
+int nb_colonne=1;
 char sauvType[20];
 char tempValeur[100];
 char typeValeur[20];

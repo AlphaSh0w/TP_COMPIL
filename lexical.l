@@ -2,6 +2,7 @@
 #include "synt.tab.h"
 extern nb_ligne;
 extern YYSTYPE yylval;
+extern nb_colonne;
 #include "fonctions.h"
 
 %}
@@ -82,7 +83,8 @@ Out return mc_out;
 {chaine} { yylval.str=strdup(yytext);
           return val_chaine;
 		  }
-[ \t] 
+[ ] 
+[\t] 
 [\n] nb_ligne++;
 . {printf("erreur lexicale a ligne %d sur l'entite %s\n",nb_ligne,yytext);
    return err;  }
