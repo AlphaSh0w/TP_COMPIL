@@ -1,33 +1,56 @@
 import ISIL.lang;
 import ISIL.io;
+
 public class $ISIL_B {
-Entier $x,$z;
-Reel $y;
+
+Entier $a, $b, $c, $d, $e, $sum;
+Entier $a;
+Chaine $chaine;
+Reel $div;
 Entier @tab[5],@tab2[3];
-CONST Entier $j := -5;
-CONST Entier $j := "ab5";
-CONST Entier $j := +2,2;
+CONST Entier $t;
+CONST Entier $i := 100;
+CONST Chaine $ch := "abc123";
+CONST Reel $j := 2.2;
 
 main()
 {
-    $j := $z;
-    $j := $z+$s;
-    $j := $z-$s;
-    $j := $z*$s;
-    $j := $z/$s;
-    $j := $z + $z++3;
-    @st[5] := $s+$z;
-
-    for($i := 0; $i <= 5; $i>>){
-        $j := $i + +1;
+    ## Les Affectation ##
+    $e := $a;
+    $e := $a + $b;
+    $e := $a - $b;
+    $e := $c * $d;
+    $e := 5;
+    $e := $a + $d + 3;
+    $chaine := "abc123";
+    @tab2[0] := $b + $c;
+    ## La Boucle ##
+    for($i := 0; $i <= 5; $i++){
+        $a := $i + 1;
+        $b := $a + $c;
     }
 
-    In("%d", $i);
+    ## Lecture ##
+    In("%f", $a);
+    In("%d", $b);
+    In("%d", $div); 
 
-    Out("test %s %f %d",$z,$e,$r);
-    ## sts tsts statz sr  
-    srzsrsr ##
+    $sum := $a + $b;
+    $div := $a / $b;
 
+    ## Ecriture ##
+    Out("la somme est %d et la devision est %f", $sum, $div);
+    ## Commentaire avec un # test ##
+
+    ## Analyse Semantique ##
+    $nonDeclare := 5;
+    Out("la somme est %d et la devision est %d", $sum, $div);
+    Out("la somme est %d et la devision est %d", $sum, $div, $sum);
+    $div := 1 / 0;
+    $div := 1;
+    $a := 1.1;
+    $a := "test";
+    $chaine := 5;
 }
 }
 
