@@ -226,15 +226,11 @@ VALEUR:val_reel {strcpy(typeValeur,"Reel");   sprintf(tempValeur, "%f", $1);}
         |cst {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
 ;
 
-OPERAND: idf {//strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],(char*)typeEntite($1));
- //strcpy(sauvEntite,$1); 
- //++nbrTypesIdfsAffectation;
- }
- |
+OPERAND: idf |
  val_entier {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Entier"); ++nbrTypesIdfsAffectation;} |
   val_reel {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Reel"); ++nbrTypesIdfsAffectation;} |
    cst { sauvConst=$1; strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Entier"); ++nbrTypesIdfsAffectation;} |
-   mc_quot val_chaine mc_quot
+   mc_quot val_chaine mc_quot {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Chaine"); ++nbrTypesIdfsAffectation;}
 ;
 
 OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div { strcpy(sauvOpr,$1); }
