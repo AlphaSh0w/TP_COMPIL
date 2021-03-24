@@ -8,6 +8,10 @@ int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
 char sauvOpr[20];
+char sauvEntite[50];
+char idfGauche[50];
+char typesIdfsAffectation[10][10];
+int nbrTypesIdfsAffectation = 0;
 int sauvConst;
 //déclarer les variables qui seront utiliser pour la sémantique des sorties écritures.
 int nbFormatagesSortie = 0;
@@ -59,12 +63,30 @@ INSTRU: INSTRU_AFFECTATION
          | INSTRU_ECRITURE
 ;
 INSTRU_AFFECTATION: idf mc_affectation EXPRESSION pvg {
+        strcpy(idfGauche,(char*)$1);
         if (bibLangExiste == 0)
                 printf("erreur semantique a la ligne %d, la bibliothèque ISIL.lang est manquante\n",nb_ligne);
         if(doubleDeclaration($1) == 0)
                 printf("erreur semantique a la ligne %d, l'identifiant %s n'est pas declaree\n",nb_ligne, $1);
+        else
+        {
+                int i;
+                int erreur = 0;
+                if(nbrTypesIdfsAffectation != 0)
+                {
+                        if(nbrTypesIdfsAffectation == 1)
+                        {
+                                if(strcmp(typesIdfsAffectation[0],(char*)typeEntite(idfGauche)) != 0)
+                                {
+                                        printf("erreur semantique a la ligne %d, incompatibilite de type.\n",nb_ligne);
+                                }
+                        }
+                }
+                nbrTypesIdfsAffectation = 0;
+        }
         if (constValeur($1) == 1)
                 printf("erreur semantique a la ligne %d, la constante %s a deja une valeur.\n", nb_ligne, $1);
+        
 }
                     |  idf_tab cr_ov cst cr_fr mc_affectation EXPRESSION pvg {
                         if(doubleDeclaration($1) == 0)
@@ -118,7 +140,7 @@ EXPRESSION: OPERAND OPERATEUR EXPRESSION {
         if((strcmp(sauvOpr,"/")==0) && (sauvConst==0))
         printf("erreur semantique a la ligne %d, division sur zero\n", nb_ligne);
         }
-           |OPERAND
+           |OPERAND 
 ;
 
 DEC: DEC_VAR
@@ -204,7 +226,11 @@ VALEUR:val_reel {strcpy(typeValeur,"Reel");   sprintf(tempValeur, "%f", $1);}
         |cst {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
 ;
 
-OPERAND: idf | val_entier | val_reel | cst { sauvConst=$1; } |mc_quot val_chaine mc_quot
+OPERAND: idf |
+ val_entier {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Entier"); ++nbrTypesIdfsAffectation;} |
+  val_reel {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Reel"); ++nbrTypesIdfsAffectation;} |
+   cst { sauvConst=$1; strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Entier"); ++nbrTypesIdfsAffectation;} |
+   mc_quot val_chaine mc_quot {strcpy(typesIdfsAffectation[nbrTypesIdfsAffectation],"Chaine"); ++nbrTypesIdfsAffectation;}
 ;
 
 OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div { strcpy(sauvOpr,$1); }

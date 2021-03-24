@@ -4,6 +4,8 @@ import ISIL.io;
 public class $ISIL_B {
 
 Entier $a, $b, $c, $d, $e, $sum;
+Entier $a;
+Chaine $chaine;
 Reel $div;
 Entier @tab[5],@tab2[3];
 CONST Entier $t;
@@ -14,12 +16,13 @@ CONST Reel $j := 2.2;
 main()
 {
     ## Les Affectation ##
-    $e := a;
+    $e := $a;
     $e := $a + $b;
     $e := $a - $b;
     $e := $c * $d;
     $e := 5;
     $e := $a + $d + 3;
+    $chaine := "abc123";
     @tab2[0] := $b + $c;
     ## La Boucle ##
     for($i := 0; $i <= 5; $i++){
@@ -28,22 +31,26 @@ main()
     }
 
     ## Lecture ##
-    ## In("%f", $a); ## 
-    ## In("%d", $b); ## 
-    ## In("%d", $div); ## 
+    In("%f", $a);
+    In("%d", $b);
+    In("%d", $div); 
 
     $sum := $a + $b;
     $div := $a / $b;
 
     ## Ecriture ##
-    ## Out("la somme est %d et la devision est %d", $sum, $div); ## 
-    ## Out("la somme est %d et la devision est %d", $sum, $div, $sum); ## 
+    Out("la somme est %d et la devision est %f", $sum, $div);
     ## Commentaire avec un # test ##
 
     ## Analyse Semantique ##
-
+    $nonDeclare := 5;
+    Out("la somme est %d et la devision est %d", $sum, $div);
+    Out("la somme est %d et la devision est %d", $sum, $div, $sum);
     $div := 1 / 0;
-
+    $div := 1;
+    $a := 1.1;
+    $a := "test";
+    $chaine := 5;
 }
 }
 
