@@ -8,6 +8,7 @@ int bibIoExiste = 0;
 int bibLangExiste = 0;
 char typeFormatage[20];
 char sauvOpr[20];
+char sauvEntite[50];
 int sauvConst;
 //déclarer les variables qui seront utiliser pour la sémantique des sorties écritures.
 int nbFormatagesSortie = 0;
@@ -118,7 +119,10 @@ EXPRESSION: OPERAND OPERATEUR EXPRESSION {
         if((strcmp(sauvOpr,"/")==0) && (sauvConst==0))
         printf("erreur semantique a la ligne %d, division sur zero\n", nb_ligne);
         }
-           |OPERAND
+           |OPERAND {if (strcmp(sauvType,(char*)typeEntite(sauvEntite)) != 0)
+           {
+                printf("erreur semantique a la ligne %d, incompatibilite de type.\n", nb_ligne);
+           }}
 ;
 
 DEC: DEC_VAR
@@ -204,7 +208,8 @@ VALEUR:val_reel {strcpy(typeValeur,"Reel");   sprintf(tempValeur, "%f", $1);}
         |cst {strcpy(typeValeur,"Entier");   sprintf(tempValeur, "%d", $1);}
 ;
 
-OPERAND: idf | val_entier | val_reel | cst { sauvConst=$1; } |mc_quot val_chaine mc_quot
+OPERAND: idf {strcpy(sauvType,(char*)typeEntite($1)); strcpy(sauvEntite,$1); printf("%s\n",sauvEntite);}|
+ val_entier | val_reel | cst { sauvConst=$1; } |mc_quot val_chaine mc_quot
 ;
 
 OPERATEUR: mc_plus | mc_mois | mc_mul | mc_div { strcpy(sauvOpr,$1); }
